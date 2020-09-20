@@ -1,0 +1,4 @@
+requests
+getmac
+bluepy
+datadog
