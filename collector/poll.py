@@ -12,8 +12,9 @@ MAGIC_ENABLE_SENSORS = b"\xA0\x1F"
 BLE_CHAR_CMD = 0x0033
 BLE_CHAR_SENSORS = 0x0035
 BLE_CHAR_BATTERY = 0x0038
-INGESTER_URL = os.getenv("INGESTER_URL", "http://growdog.ryan.local/metrics")
+INGESTER_URL = os.getenv("INGESTER_URL", "https://plants.pedanticorderliness.com/metrics")
 COLLECTOR_MAC = getmac.get_mac_address()
+FIVE_MINUTES = 60 * 5
 
 while True:
     monitors = scanner.discover_devices()
@@ -53,7 +54,7 @@ while True:
                     'cond': cond,
                     'battery': battery
             }
-            res = requests.post(INGESTER_URL, json=metrics, timeout=20) 
+            res = requests.post(INGESTER_URL, json=metrics, timeout=30) 
             if res.status_code != 204:
                     print("Problem sending metrics to ingester", res.status_code)
 
@@ -72,4 +73,4 @@ while True:
                 periph.disconnect()
                 print("disconnected")
 
-    time.sleep(60)
+    time.sleep(FIVE_MINUTES)
