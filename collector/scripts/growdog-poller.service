@@ -1,8 +1,0 @@
-[Unit]
-Description=Growdog Plant Data Pooler
-After=network.target
-[Service]
-Restart=always
-ExecStart=/usr/bin/python3 -u /home/pi/growdog/poll.py
-[Install]
-WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+#git+https://github.com/open-homeautomation/miflora.git#egg=miflora
+miflora==0.7.2
+requests
+getmac
+bluepy

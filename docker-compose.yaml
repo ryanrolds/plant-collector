@@ -1,13 +1,15 @@
 version: '2'
 services:
-  collector:
-    build: ./collector
+  bridge:
+    build: ./bridge
     privileged: true
     network_mode: host
     labels:
       io.balena.features.dbus: '1'
-    environment: 
-    - INGESTER_URL=${INGESTER_URL}
+      io.balena.features.kernel-modules: '1'
+    environment:
+      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+      - INGESTER_URL=${INGESTER_URL}
     restart: always
   wifi-connect:
     build: ./wifi-connect
@@ -15,7 +17,6 @@ services:
     labels:
       io.balena.features.dbus: '1'
     cap_add:
-    - NET_ADMIN
+      - NET_ADMIN
     environment:
       DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
-       
