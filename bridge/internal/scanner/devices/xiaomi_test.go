@@ -22,6 +22,36 @@ func TestParseXiaomiData(t *testing.T) {
 		expectedMeasurementValue interface{}
 	}{
 		{
+			name: "temperature",
+			measurementBytes: []byte{
+				0x04, 0x10, // measurement type
+				0x02,       // measurement length
+				0xa4, 0x00, // measurement value
+			},
+			expectedMeasurementType:  "temperature",
+			expectedMeasurementValue: float32(16.4),
+		},
+		{
+			name: "light",
+			measurementBytes: []byte{
+				0x07, 0x10, // measurement type
+				0x03,             // measurement length
+				0x1a, 0x00, 0x00, // measurement value
+			},
+			expectedMeasurementType:  "light",
+			expectedMeasurementValue: float32(26),
+		},
+		{
+			name: "moisture",
+			measurementBytes: []byte{
+				0x08, 0x10, // measurement type
+				0x01, // measurement length
+				0x15, // measurement value
+			},
+			expectedMeasurementType:  "moisture",
+			expectedMeasurementValue: float32(21),
+		},
+		{
 			name: "conductivity",
 			measurementBytes: []byte{
 				0x09, 0x10, // measurement type
@@ -32,14 +62,14 @@ func TestParseXiaomiData(t *testing.T) {
 			expectedMeasurementValue: float32(49),
 		},
 		{
-			name: "moisture",
+			name: "battery",
 			measurementBytes: []byte{
-				0x08, 0x10, // measurement type
+				0x0a, 0x10, // measurement type
 				0x01, // measurement length
 				0x32, // measurement value
 			},
-			expectedMeasurementType:  "moisture",
-			expectedMeasurementValue: float32(50),
+			expectedMeasurementType:  "battery",
+			expectedMeasurementValue: int(50),
 		},
 	}
 
@@ -57,6 +87,12 @@ func TestParseXiaomiData(t *testing.T) {
 				assert.Equal(t, tt.expectedMeasurementValue, *sample.Conductivity)
 			case "moisture":
 				assert.Equal(t, tt.expectedMeasurementValue, *sample.Moisture)
+			case "temperature":
+				assert.Equal(t, tt.expectedMeasurementValue, *sample.Temperature)
+			case "light":
+				assert.Equal(t, tt.expectedMeasurementValue, *sample.Light)
+			case "battery":
+				assert.Equal(t, tt.expectedMeasurementValue, *sample.Battery)
 			}
 		})
 	}

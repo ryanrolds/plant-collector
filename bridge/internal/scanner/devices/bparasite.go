@@ -25,12 +25,14 @@ func ParseBparasiteData(device bluetooth.ScanResult) (ingester.Sample, bool) {
 
 		//version := sensorData[0] >> 4
 		//counter := sensorData[1] & 0x0f
-		batteryVoltage := float32(binary.BigEndian.Uint16(sensorData[2:4])) / 1000      // millivolts
-		tempCelcius := float32(binary.BigEndian.Uint16(sensorData[4:6])) / 100          // centicelcius
-		humidity := 100 * float32(binary.BigEndian.Uint16(sensorData[6:8])) / (1 << 16) // percent
-		soilMoisture := float32(binary.BigEndian.Uint16(sensorData[8:10]))
+		batteryVoltage := float32(binary.BigEndian.Uint16(sensorData[2:4])) / 1000             // millivolts
+		tempCelcius := float32(binary.BigEndian.Uint16(sensorData[4:6])) / 100                 // centicelcius
+		humidity := 100 * (float32(binary.BigEndian.Uint16(sensorData[6:8])) / (1 << 16))      // percent
+		soilMoisture := 100 * (float32(binary.BigEndian.Uint16(sensorData[8:10])) / (1 << 16)) // percent
 		lux := float32(binary.BigEndian.Uint16(sensorData[16:18]))
 
+		// very basic % calculation
+		// TODO figure out the actual battery voltage range and curve
 		batteryPercentage := int(batteryVoltage / 3.3 * 100)
 
 		s := ingester.Sample{
