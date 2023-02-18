@@ -22,13 +22,19 @@ type Sample struct {
 	Battery      *int      `json:"battery"`
 }
 
+const timeout = 10 * time.Second
+
 type Ingester struct {
-	url string
+	url    string
+	client *http.Client
 }
 
 func NewIngester(url string) *Ingester {
 	return &Ingester{
 		url: url,
+		client: &http.Client{
+			Timeout: timeout,
+		},
 	}
 }
 
@@ -66,7 +72,7 @@ func (i *Ingester) send(m Sample) error {
 
 	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
-	resp, err := http.DefaultClient.Do(request)
+	resp, err := i.client.Do(request)
 	if err != nil {
 		return err
 	}
