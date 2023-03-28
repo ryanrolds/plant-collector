@@ -31,6 +31,9 @@ func HandleXiaomiResult(device bluetooth.ScanResult, samples chan<- ingester.Sam
 			continue
 		}
 
+		rssi := int(device.RSSI)
+		sample.Rssi = &rssi
+
 		log.WithField("sample", sample).Debug("received xiaomi sample")
 
 		samples <- sample

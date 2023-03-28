@@ -34,6 +34,7 @@ func ParseBparasiteData(device bluetooth.ScanResult) (ingester.Sample, bool) {
 		// very basic % calculation
 		// TODO figure out the actual battery voltage range and curve
 		batteryPercentage := int(batteryVoltage / 3.3 * 100)
+		rssi := int(device.RSSI)
 
 		s := ingester.Sample{
 			Time:        time.Now(),
@@ -44,6 +45,7 @@ func ParseBparasiteData(device bluetooth.ScanResult) (ingester.Sample, bool) {
 			Moisture:    &soilMoisture,
 			Light:       &lux,
 			Battery:     &batteryPercentage,
+			Rssi:        &rssi,
 		}
 
 		log.WithField("sample", s).Debug("received bparasite samples")

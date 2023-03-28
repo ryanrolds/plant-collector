@@ -20,6 +20,7 @@ type Sample struct {
 	Conductivity *float32  `json:"cond"`
 	Humidity     *float32  `json:"humid"`
 	Battery      *int      `json:"battery"`
+	Rssi         *int      `json:"rssi"`
 }
 
 const timeout = 10 * time.Second
