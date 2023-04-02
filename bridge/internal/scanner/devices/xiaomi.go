@@ -74,6 +74,11 @@ func parseXiaomiSensorData(sensorData []byte) (ingester.Sample, error) {
 		Plant:     macAddr.String(),
 	}
 
+	if len(sensorData) < 15 {
+		logrus.Errorf("sensor data is too short %x", sensorData)
+		return ingester.Sample{}, nil
+	}
+
 	measurementType := binary.LittleEndian.Uint16(sensorData[12:14])
 	logrus.Debugf("data %x", measurementType)
 
