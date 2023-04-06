@@ -54,9 +54,13 @@ xxxx xxxx xx xxxxxxxxxxxx xx xxxx
 7120 9800 db 44e988caea80 0d 0710 03 1a0000
 7120 9800 48 104a678d7cc4 0d 0410 02 a400
 7120 9800 48 104a678d7cc4 0d 0410 02 a400
+7120 9800 00 104a678d7cc4 0d
+
 */
 
 func parseXiaomiSensorData(sensorData []byte) (ingester.Sample, error) {
+	logrus.Info("sensor data %x", sensorData)
+
 	if len(sensorData) < 5 {
 		logrus.Error("sensor data is too short")
 		return ingester.Sample{}, nil
@@ -75,7 +79,7 @@ func parseXiaomiSensorData(sensorData []byte) (ingester.Sample, error) {
 	}
 
 	if len(sensorData) < 15 {
-		logrus.Errorf("sensor data is too short %x", sensorData)
+		//logrus.Errorf("sensor data is too short %x", sensorData)
 		return ingester.Sample{}, nil
 	}
 
