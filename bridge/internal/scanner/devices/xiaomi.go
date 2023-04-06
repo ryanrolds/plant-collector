@@ -79,7 +79,7 @@ func parseXiaomiSensorData(sensorData []byte) (ingester.Sample, error) {
 	}
 
 	if len(sensorData) < 15 {
-		//logrus.Errorf("sensor data is too short %x", sensorData)
+		logrus.Errorf("sensor data is too short %x", sensorData)
 		return ingester.Sample{}, nil
 	}
 
