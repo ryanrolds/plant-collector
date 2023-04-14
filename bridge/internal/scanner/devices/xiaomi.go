@@ -41,7 +41,8 @@ func HandleXiaomiResult(device bluetooth.ScanResult, samples chan<- ingester.Sam
 }
 
 /*
-xxxx xxxx xx xxxxxxxxxxxx xx xxxx
+
+aaaa bbbb cc dddddddddddd ee ffff gg hhhhhh
 0 1  2 3  4  5 6 7 8 9 10 11 1213 14 151617
 7120 9800 d9 44e988caea80 0d 0910 02 3100
 7120 9800 d4 ea47678d7cc4 0d 0810 01 15
@@ -55,6 +56,16 @@ xxxx xxxx xx xxxxxxxxxxxx xx xxxx
 7120 9800 48 104a678d7cc4 0d 0410 02 a400
 7120 9800 48 104a678d7cc4 0d 0410 02 a400
 7120 9800 00 104a678d7cc4 0d
+7120 9800 00 104a678d7cc4 0d
+
+a -
+b -
+c - frame counter
+d - mac address
+e -
+f - metric
+g - metric size
+h - metric value
 
 */
 
