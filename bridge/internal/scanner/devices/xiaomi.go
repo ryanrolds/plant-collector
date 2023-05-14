@@ -70,10 +70,7 @@ h - metric value
 */
 
 func parseXiaomiSensorData(sensorData []byte) (ingester.Sample, error) {
-	logrus.Infof("sensor data %x", sensorData)
-
 	if len(sensorData) < 5 {
-		logrus.Error("sensor data is too short")
 		return ingester.Sample{}, nil
 	}
 
